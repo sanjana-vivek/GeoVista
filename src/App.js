@@ -1,16 +1,41 @@
-import logo from "./logo.svg";
 import "./App.css";
+import { useEffect, useState } from "react";
+import Background from "./components/Background";
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+
+let heroData = [
+  {
+    text1: "Empowering Communities with",
+    text2: "Real-Time Water Pollution Data",
+  },
+  {
+    text1: "Transforming Environmental Monitoring",
+    text2: "through open space data ",
+  },
+  {
+    text1: "Harnessing Technology to",
+    text2: "Safeguard Our Water Resources",
+  },
+];
 
 function App() {
+  const [heroCount, setHeroCount] = useState(0);
+  useEffect(() => {
+    setInterval(()=>{
+        setHeroCount((count) => {return count===2?0:count+1})
+    }, 4000)
+  },[])
+
   return (
     <div className="App">
-      <h1>GeoVista</h1>
-      <h3>Your personalised water pollution detector</h3>
-      <p>
-        Anywhere, everywhere! Let's uplift our country's might rivers! Our
-        water polution index and warnings are facilitated by spectral analysis
-        of Landsat Reflectance data
-      </p>
+      <Background heroCount={heroCount} />
+      <Navbar />
+      <Hero
+        heroData={heroData[heroCount]}
+        heroCount={heroCount}
+        setHeroCount={setHeroCount}
+      />
     </div>
   );
 }
